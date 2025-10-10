@@ -1,0 +1,23 @@
+{
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/curban2336/PetMapper.git"
+  },
+  "author": "Christopher Urban <g00269489s@stu.raritanval.edu> (https://github.com/curban2336)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/curban2336/PetMapper/issues"
+  },
+  "homepage": "https://github.com/curban2336/PetMapper#readme",
+  "description": "",
+  "devDependencies": {
+    "electron": "^38.2.2"
+  }
+}
