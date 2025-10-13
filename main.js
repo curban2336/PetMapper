@@ -1,7 +1,7 @@
 //Importing necessary modules from Electron
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron')
 
-//
+//Importing the path module to handle file paths
 const path = require('node:path')
 
 //Function to create a new browser window
@@ -15,6 +15,19 @@ const createWindow = () => {
   })
 
   win.loadFile('index.html')
+
+  ipcMain.handle('dark-mode:toggle', () => {
+  if (nativeTheme.shouldUseDarkColors) {
+    nativeTheme.themeSource = 'light'
+  } else {
+    nativeTheme.themeSource = 'dark'
+  }
+  return nativeTheme.shouldUseDarkColors
+})
+
+ipcMain.handle('dark-mode:system', () => {
+  nativeTheme.themeSource = 'system'
+})
 }
 
 
@@ -29,6 +42,7 @@ app.whenReady().then(() => {
   createWindow()
 
   app.whenReady().then(() => {
+  ipcMain.handle('ping', () => 'pong')  
   createWindow()
 
   //On macOS, re-create a window when the dock icon is clicked and there are no other windows open
