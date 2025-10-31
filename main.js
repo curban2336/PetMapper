@@ -1,6 +1,11 @@
 //Importing necessary modules from Electron
 const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron')
 
+import Map from 'ol/Map.js';
+import View from 'ol/View.js';
+import TileLayer from 'ol/layer/Tile.js';
+import OSM from 'ol/source/OSM.js';
+
 //Importing the path module to handle file paths
 const path = require('node:path')
 
@@ -15,19 +20,6 @@ const createWindow = () => {
   })
 
   win.loadFile('index.html')
-
-  ipcMain.handle('dark-mode:toggle', () => {
-  if (nativeTheme.shouldUseDarkColors) {
-    nativeTheme.themeSource = 'light'
-  } else {
-    nativeTheme.themeSource = 'dark'
-  }
-  return nativeTheme.shouldUseDarkColors
-})
-
-ipcMain.handle('dark-mode:system', () => {
-  nativeTheme.themeSource = 'system'
-})
 }
 
 
@@ -51,3 +43,28 @@ app.whenReady().then(() => {
   })
 })
 })
+
+const map = new Map({
+  layers: [
+    new TileLayer({
+      source: new OSM(),
+    }),
+  ],
+  target: 'map',
+  view: new View({
+    center: [0, 0],
+    zoom: 2,
+  }),
+});
+
+document.getElementById('zoom-out').onclick = function () {
+  const view = map.getView();
+  const zoom = view.getZoom();
+  view.setZoom(zoom - 1);
+};
+
+document.getElementById('zoom-in').onclick = function () {
+  const view = map.getView();
+  const zoom = view.getZoom();
+  view.setZoom(zoom + 1);
+};

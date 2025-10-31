@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
@@ -11,26 +11,43 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
-    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <title>Hello from PetMapper!</title>
+
+    <link rel="stylesheet" href="node_modules/ol/ol.css">
+    <style>
+      .map {
+        width: 100%;
+        height: 400px;
+      }
+      a.skiplink {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+        padding: 0;
+        border: 0;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+      }
+      a.skiplink:focus {
+        clip: auto;
+        height: auto;
+        width: auto;
+        background-color: #fff;
+        padding: 0.3em;
+      }
+      #map:focus {
+        outline: #4A74A8 solid 0.15em;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello from PetMapper!</h1>
-    <p>👋</p>
-    <p>We are attempting to create a map view showing local areas to adopt pets, with a filter based on Petfinder's search engine. This will be an app built with Electron. This will also serve as my Capstone project for my Web Development Associates at Raritan Valley Community College. Below will be images showing the layout of the app mocked up, along with color codes and selected fonts
-    </p>
-    <img src="./images/menuselect.drawio.png" alt="Mockup 1" width="600"/>
-    <img src="./images/UIDemo.drawio.png" alt="Mockup 2" width="600"/>
-    <img src="./images/UIDemoA.drawio.png" alt="Mockup 3" width="600"/>
-    <h2>Color Codes</h2> 
-    <img src="./images/Screenshot 2025-09-29 010607.png" alt="Color Codes" width="400"/>
-    <img src="./images/Screenshot 2025-09-29 011004.png" alt="Color Codes" width="400"/>
-    <img src="./images/Screenshot 2025-09-29 011136.png" alt="Color Codes" width="400"/>
-    <h2>Fonts</h2>
-    <img src="./images/Screenshot 2025-09-29 154140.png" alt="Fonts" width="400"/>
-    <img src="./images/Screenshot 2025-09-29 154156.png" alt="Fonts" width="400"/>
-    <button id="toggle-dark-mode">Toggle Dark Mode</button>
-    <button id="reset-to-system">Reset to System Theme</button>
+    <a class="skiplink" href="#map">Go to map</a>
+    <div id="map" class="map" tabindex="0"></div>
+    <button id="zoom-out">Zoom out</button>
+    <button id="zoom-in">Zoom in</button>
+
+    <script type="module" src="main.js"></script>
     <p id="info"></p>
   </body>
   <script src="./renderer.js"></script>
