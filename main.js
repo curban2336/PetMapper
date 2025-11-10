@@ -1,10 +1,5 @@
 //Importing necessary modules from Electron
-const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron')
-
-import Map from 'ol/Map.js';
-import View from 'ol/View.js';
-import TileLayer from 'ol/layer/Tile.js';
-import OSM from 'ol/source/OSM.js';
+const { app, BrowserWindow, ipcMain } = require('electron/main')
 
 //Importing the path module to handle file paths
 const path = require('node:path')
@@ -21,50 +16,43 @@ const createWindow = () => {
 
   win.loadFile('index.html')
 }
-
-
-//Event listener for when all windows are closed
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
+app.whenReady().then(() => {
+  ipcMain.handle('ping', () => 'pong')
+  createWindow()
 })
 
+// var map = L.map('map');
+// map.setView([51.505, -0.09], 13);
 
-//Event listener for when the application is ready
+// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 19,
+//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// }).addTo(map);
+
 app.whenReady().then(() => {
   createWindow()
 
-  app.whenReady().then(() => {
-  ipcMain.handle('ping', () => 'pong')  
-  createWindow()
-
-  //On macOS, re-create a window when the dock icon is clicked and there are no other windows open
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
   })
 })
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
 })
 
-const map = new Map({
-  layers: [
-    new TileLayer({
-      source: new OSM(),
-    }),
-  ],
-  target: 'map',
-  view: new View({
-    center: [0, 0],
-    zoom: 2,
-  }),
-});
+// document.getElementById('zoom-out').onclick = function () {
+//   const view = map.getView();
+//   const zoom = view.getZoom();
+//   view.setZoom(zoom - 1);
+// };
 
-document.getElementById('zoom-out').onclick = function () {
-  const view = map.getView();
-  const zoom = view.getZoom();
-  view.setZoom(zoom - 1);
-};
-
-document.getElementById('zoom-in').onclick = function () {
-  const view = map.getView();
-  const zoom = view.getZoom();
-  view.setZoom(zoom + 1);
-};
+// document.getElementById('zoom-in').onclick = function () {
+//   const view = map.getView();
+//   const zoom = view.getZoom();
+//   view.setZoom(zoom + 1);
+// };
