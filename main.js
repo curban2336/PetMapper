@@ -4,6 +4,8 @@ const { app, BrowserWindow, ipcMain } = require('electron/main')
 //Importing the path module to handle file paths
 const path = require('node:path')
 
+const M = document.getElementById('map-script');
+
 //Function to create a new browser window
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -20,6 +22,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong')
   createWindow()
+  M.AddMarker(51.505, -0.09);
 })
 
 // var map = L.map('map');
