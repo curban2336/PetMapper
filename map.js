@@ -4,6 +4,14 @@ import {Map,TileLayer} from 'https://unpkg.com/leaflet@1.9.4/dist/leaflet-src.es
 var map = new Map('map');
 var markerList = [];
 map.setView([51.505, -0.09], 13);
+var latitude = 51.505;
+var longitude = -0.09;
+// const markerEvent = new CustomEvent('custom:AddMarker', {
+//     detail: {
+//         lat: latitude,
+//         lng: longitude
+//     }
+// });
 
 new TileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -15,3 +23,13 @@ const AddMarker = (lat, lng) => {
     markerList.push(marker);
     console.log(markerList);
 }
+
+//const M = document.getElementById('map-script');
+
+// addEventListener('custom:AddMarker', e => {
+//     AddMarker(e.detail.lat, e.detail.lng);
+// });
+
+// exports.AddMarker = AddMarker;
+// exports.markerList = markerList;
+// exports.map = map;

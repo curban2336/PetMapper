@@ -4,4 +4,4 @@
   :root { background: #333; color: white; }
 }
 
-#map { height: 350px; }
+#map { width: auto; }

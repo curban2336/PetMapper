@@ -1,10 +1,19 @@
 //Importing necessary modules from Electron
-const { app, BrowserWindow, ipcMain } = require('electron/main')
+//const { app, BrowserWindow, ipcMain } = require('electron/main');
 
 //Importing the path module to handle file paths
-const path = require('node:path')
+//import path from 'node:path';
 
-const M = document.getElementById('map-script');
+//import * as M from './map.js';
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const ipcMain = electron.ipcMain;
+
+const path=require('path');
+
+var latitude = 51.505;
+var longitude = -0.09;
 
 //Function to create a new browser window
 const createWindow = () => {
@@ -22,7 +31,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong')
   createWindow()
-  M.AddMarker(51.505, -0.09);
+  AddMarker(latitude, longitude);
 })
 
 // var map = L.map('map');
@@ -34,7 +43,7 @@ app.whenReady().then(() => {
 // }).addTo(map);
 
 app.whenReady().then(() => {
-  createWindow()
+  //createWindow()
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
