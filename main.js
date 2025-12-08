@@ -1,14 +1,15 @@
 //Importing necessary modules from Electron
-//const { app, BrowserWindow, ipcMain } = require('electron/main');
+//import * as P from 'preload.js';
+const { app, BrowserWindow, ipcMain } = require('electron/main');
 
 //Importing the path module to handle file paths
 //import path from 'node:path';
 
 //import * as M from './map.js';
 const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
-const ipcMain = electron.ipcMain;
+//const app = electron.app;
+//const BrowserWindow = electron.BrowserWindow;
+//const ipcMain = electron.ipcMain;
 
 const path=require('path');
 
@@ -17,9 +18,9 @@ var longitude = -0.09;
 
 //Function to create a new browser window
 const createWindow = () => {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+  const win = new electron.BrowserWindow({
+    width: 1000,
+    height: 800,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true

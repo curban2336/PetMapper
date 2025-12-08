@@ -2,13 +2,9 @@ const { contextBridge, ipcRenderer } = require('electron/renderer')
 
 const { remote } = require('electron');
 
-// const { app, BrowserWindow, ipcMain } = require('electron/main');
+const { app, BrowserWindow, ipcMain } = require('electron/main');
 
 const path = require('node:path');
-
-const app = require('electron/main').app;
-
-const ipcMain = require('electron/main').ipcMain;
 
 let currWindow = remote.BrowserWindow.getFocusedWindow();
 
@@ -34,5 +30,6 @@ contextBridge.exposeInMainWorld('versions', {
 exports = {
   path: path,
   app: app,
-  ipcMain: ipcMain
+  ipcMain: ipcMain,
+  browser: BrowserWindow
 };
